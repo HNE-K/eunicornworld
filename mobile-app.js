@@ -168,9 +168,12 @@ class EunicornWorld {
             return;
         }
 
-        const rect = this.BG_section.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / this.viewportScale + this.viewportX;
-        const y = (e.clientY - rect.top) / this.viewportScale + this.viewportY;
+        const rect = this.viewport.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const clickY = e.clientY - rect.top;
+
+        const x = (clickX / this.viewportScale) + this.viewportX;
+        const y = (clickY / this.viewportScale) + this.viewportY;
 
         this.setTarget(x, y);
     }
@@ -232,9 +235,12 @@ class EunicornWorld {
             const deltaY = touch.clientY - this.dragStartY;
 
             if (Math.abs(deltaX) < 10 && Math.abs(deltaY) < 10) {
-                const rect = this.BG_section.getBoundingClientRect();
-                const x = (touch.clientX - rect.left) / this.viewportScale + this.viewportX;
-                const y = (touch.clientY - rect.top) / this.viewportScale + this.viewportY;
+                const rect = this.viewport.getBoundingClientRect();
+                const touchX = touch.clientX - rect.left;
+                const touchY = touch.clientY - rect.top;
+
+                const x = (touchX / this.viewportScale) + this.viewportX;
+                const y = (touchY / this.viewportScale) + this.viewportY;
                 this.setTarget(x, y);
             }
         }
@@ -250,12 +256,13 @@ class EunicornWorld {
     }
 
     setTarget(x, y) {
-        const imgHeight = this.BG_img.offsetHeight;
-        const maxX = this.BG_section.clientWidth - this.unicorn.clientWidth;
-        const maxY = imgHeight - this.unicorn.clientHeight;
+        const bgWidth = this.BG_section.offsetWidth;
+        const bgHeight = this.BG_section.offsetHeight;
+        const maxX = bgWidth - this.unicorn.offsetWidth;
+        const maxY = bgHeight - this.unicorn.offsetHeight;
 
-        this.targetX = Math.max(0, Math.min(maxX, x - this.unicorn.clientWidth / 2));
-        this.targetY = Math.max(0, Math.min(maxY, y - this.unicorn.clientHeight / 2));
+        this.targetX = Math.max(0, Math.min(maxX, x - this.unicorn.offsetWidth / 2));
+        this.targetY = Math.max(0, Math.min(maxY, y - this.unicorn.offsetHeight / 2));
         this.isMoving = true;
     }
 
