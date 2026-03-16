@@ -1,0 +1,328 @@
+@font-face {
+    font-family: "Laila-Bold";
+    src: url("src/fonts/Laila/Laila-Bold.ttf");
+}
+
+@font-face {
+    font-family: "Laila-SemiBold";
+    src: url("src/fonts/Laila/Laila-SemiBold.ttf");
+}
+
+@font-face {
+    font-family: "Laila";
+    src: url("src/fonts/Laila/Laila-Medium.ttf");
+}
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: fixed;
+    touch-action: none;
+}
+
+body {
+    font-family: Laila, sans-serif;
+}
+
+#game-container {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background: #87ceeb;
+}
+
+#viewport {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    touch-action: none;
+}
+
+#BG {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200vw;
+    height: 180vh;
+    transform-origin: 0 0;
+    touch-action: none;
+}
+
+#BG_img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+}
+
+#snow_canvas {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+#unicorn {
+    position: absolute;
+    top: 18%;
+    left: 3%;
+    width: 12vw;
+    min-width: 60px;
+    max-width: 120px;
+    height: auto;
+    z-index: 10;
+    filter: drop-shadow(0rem 0rem 0.25rem rgb(50, 50, 50));
+    transform: scaleX(-1);
+    pointer-events: none;
+}
+
+#unicorn img {
+    width: 100%;
+    height: auto;
+    display: none;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+}
+
+#open_instructions {
+    position: fixed;
+    top: 2vh;
+    right: 2vw;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    background: none;
+    border: none;
+    padding: 0;
+    z-index: 100;
+    cursor: pointer;
+    border-radius: 50%;
+    filter: drop-shadow(0 0 0.5rem rgba(255, 217, 0, 0.8));
+}
+
+#Guide_Button {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.2s ease;
+}
+
+#open_instructions:active #Guide_Button {
+    transform: rotate(25deg);
+}
+
+#instructions {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw;
+    max-width: 500px;
+    max-height: 70vh;
+    background-color: rgba(240, 248, 255, 0.95);
+    border-radius: 20px;
+    padding: 1.5rem;
+    z-index: 200;
+    overflow-y: auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+#instructions div {
+    text-align: center;
+}
+
+#instructions h2 {
+    font-family: Laila-Bold;
+    font-size: clamp(1.2rem, 5vw, 1.8rem);
+    margin: 0 0 1rem 0;
+    color: #333;
+}
+
+#instructions p {
+    font-family: Laila;
+    font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+    margin: 0.8rem 0;
+    color: #555;
+    line-height: 1.5;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    z-index: 201;
+}
+
+.close-button img {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.2s ease;
+}
+
+.close-button:active img {
+    transform: rotate(25deg);
+}
+
+#slider {
+    -webkit-appearance: none;
+    appearance: none;
+    position: fixed;
+    bottom: 8vh;
+    left: 10vw;
+    width: 80vw;
+    height: 44px;
+    min-height: 44px;
+    border-radius: 25px;
+    opacity: 0.85;
+    outline: none;
+    z-index: 50;
+    background-image: linear-gradient(to right,
+        white,
+        white 24%,
+        black 24%,
+        black 24.5%,
+        white 24.5%,
+        white 50%,
+        black 50%,
+        black 50.5%,
+        white 50.5%,
+        white 75%,
+        black 75%,
+        black 75.5%,
+        white 75.5%,
+        white 100%);
+    cursor: pointer;
+}
+
+#slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 60px;
+    height: 60px;
+    min-width: 44px;
+    min-height: 44px;
+    background-image: url(src/images/Slider_Knob.png);
+    background-size: cover;
+    filter: drop-shadow(0 0 0.5rem rgba(255, 217, 0, 0.8));
+    border-radius: 50%;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transform: rotateZ(var(--thumb-rotate, 0deg));
+}
+
+#slider::-moz-range-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 60px;
+    height: 60px;
+    background-image: url(src/images/Slider_Knob.png);
+    background-size: cover;
+    filter: drop-shadow(0 0 0.5rem rgba(255, 217, 0, 0.8));
+    border-radius: 50%;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transform: rotateZ(var(--thumb-rotate, 0deg));
+}
+
+@media (min-width: 768px) {
+    #slider {
+        width: 70vw;
+        left: 15vw;
+        bottom: 10vh;
+    }
+
+    #unicorn {
+        width: 10vw;
+        min-width: 80px;
+        max-width: 150px;
+    }
+
+    #instructions {
+        width: 70vw;
+        max-width: 600px;
+    }
+}
+
+@media (min-width: 1024px) {
+    #BG {
+        width: 150vw;
+        height: 150vh;
+    }
+
+    #slider {
+        width: 60vw;
+        left: 20vw;
+    }
+
+    #unicorn {
+        width: 8vw;
+        min-width: 100px;
+        max-width: 180px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    #Guide_Button,
+    .close-button img {
+        transition: none;
+    }
+}
+
+@media (max-height: 600px) {
+    #slider {
+        bottom: 5vh;
+        height: 36px;
+        min-height: 36px;
+    }
+
+    #slider::-webkit-slider-thumb,
+    #slider::-moz-range-thumb {
+        width: 50px;
+        height: 50px;
+    }
+
+    #instructions {
+        max-height: 80vh;
+        padding: 1rem;
+    }
+}

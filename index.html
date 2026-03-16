@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>A Eunicorn's World</title>
+    <link rel="stylesheet" type="text/css" href="mobile-style.css" />
+</head>
+<body>
+    <div id="game-container">
+        <div id="viewport">
+            <section id="BG">
+                <canvas id="snow_canvas"></canvas>
+                <img id="BG_img" src="src/images/Senior_Thesis_Map_Spring.png" alt="Background Map" draggable="false" />
+
+                <div id="unicorn">
+                    <img src="src/images/unicorn/Unicorn_Running-1.png" alt="unicorn" />
+                    <img src="src/images/unicorn/Unicorn_Running-2.png" alt="unicorn" />
+                    <img src="src/images/unicorn/Unicorn_Running-3.png" alt="unicorn" />
+                    <img src="src/images/unicorn/Unicorn_Running-4.png" alt="unicorn" />
+                    <img src="src/images/unicorn/Unicorn_Running-5.png" alt="unicorn" />
+                    <img src="src/images/unicorn/Unicorn_Running-6.png" alt="unicorn" />
+                    <img src="src/images/unicorn/Unicorn_Running-7.png" alt="unicorn" />
+                    <img src="src/images/unicorn/Unicorn_Running-8.png" alt="unicorn" />
+                    <img src="src/images/unicorn/Unicorn_Standing-1.png" alt="unicorn" />
+                    <img src="src/images/unicorn/Unicorn_Standing-2.png" alt="unicorn" />
+                    <img src="src/images/unicorn/Unicorn_Standing-3.png" alt="unicorn" />
+                    <img src="src/images/unicorn/Unicorn_Standing-4.png" alt="unicorn" />
+                    <img src="src/images/unicorn/Unicorn_Swimming-1.png" alt="unicorn" />
+                    <img src="src/images/unicorn/Unicorn_Swimming-2.png" alt="unicorn" />
+                    <img src="src/images/unicorn/Unicorn_Swimming-3.png" alt="unicorn" />
+                    <img src="src/images/unicorn/Unicorn_Swimming-4.png" alt="unicorn" />
+                </div>
+            </section>
+        </div>
+
+        <button id="open_instructions" aria-label="Open instructions">
+            <img src="src/images/Mouse_Pointer.png" id="Guide_Button" alt="Help" />
+        </button>
+
+        <div id="instructions" style="display: none;" role="dialog" aria-labelledby="instructions-title">
+            <button class="close-button" aria-label="Close instructions">
+                <img src="src/images/X_Button.png" id="X_Button" alt="Close" />
+            </button>
+            <div>
+                <h2 id="instructions-title">How to Play</h2>
+                <p>Tap anywhere on the map to move the unicorn to that location.</p>
+                <p>Use pinch gestures to zoom in and out on the map.</p>
+                <p>Drag the slider at the bottom to change seasons.</p>
+                <p>Watch the map transform as you explore different seasons!</p>
+            </div>
+        </div>
+
+        <input type="range" id="slider" min="1" max="100" value="1" aria-label="Season selector" />
+    </div>
+
+    <script src="mobile-app.js" type="module"></script>
+</body>
+</html>
