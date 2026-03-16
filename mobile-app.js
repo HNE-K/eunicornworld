@@ -332,10 +332,11 @@ class EunicornWorld {
         const y_ratio = this.top_coord / BG_height;
 
         return (
-            (x_ratio >= 0 && x_ratio < 0.25 && y_ratio >= 0 && y_ratio < 0.20) ||
-            (x_ratio >= 0.15 && x_ratio < 0.35 && y_ratio >= 0.15 && y_ratio < 0.65) ||
-            (x_ratio >= 0.35 && x_ratio < 0.52 && y_ratio >= 0.20 && y_ratio < 0.55) ||
-            (x_ratio >= 0.70 && x_ratio < 0.85 && y_ratio >= 0.55 && y_ratio < 0.80)
+            (x_ratio >= 0 && x_ratio < 0.18 && y_ratio >= 0 && y_ratio < 0.45) ||
+            (x_ratio >= 0.05 && x_ratio < 0.20 && y_ratio >= 0.15 && y_ratio < 0.85) ||
+            (x_ratio >= 0.18 && x_ratio < 0.42 && y_ratio >= 0.20 && y_ratio < 0.75) ||
+            (x_ratio >= 0.38 && x_ratio < 0.55 && y_ratio >= 0 && y_ratio < 0.25) ||
+            (x_ratio >= 0.68 && x_ratio < 0.82 && y_ratio >= 0.55 && y_ratio < 0.85)
         );
     }
 
