@@ -386,7 +386,7 @@ h1 {
     font-size: clamp(10pt, 2vh, 18pt);
     text-decoration: underline;
     padding: 0.8em 1em;
-    min-height: 48px;
+    min-height: min-content;
     line-height: 1.4;
     border-radius: 1em;
     word-wrap: break-word;
