@@ -63,7 +63,7 @@ class EunicornWorld {
         const closeBtn = document.querySelector('.close-button');
 
         openBtn.addEventListener('click', () => {
-            instructions.style.display = 'block';
+            instructions.style.display = 'flex';
         });
 
         closeBtn.addEventListener('click', () => {
