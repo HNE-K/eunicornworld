@@ -444,13 +444,6 @@ h1 {
     }
 }
 
-#BG.heat-haze {
-    filter: url(#heat-haze-filter);
-}
-
-#BG {
-    transition: filter 0.8s ease;
-}
 
 @media (prefers-reduced-motion: reduce) {
     * {
@@ -464,9 +457,6 @@ h1 {
         transition: none;
     }
 
-    #BG.heat-haze {
-        filter: none;
-    }
 }
 
 @media (max-height: 600px) {

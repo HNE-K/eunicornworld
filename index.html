@@ -77,15 +77,6 @@
             </section>
         </div>
 
-        <svg id="heat-haze-svg" xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden;" aria-hidden="true">
-            <defs>
-                <filter id="heat-haze-filter" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
-                    <feTurbulence id="heat-turbulence" type="fractalNoise" baseFrequency="0.012 0.008" numOctaves="2" seed="1" result="noise" />
-                    <feDisplacementMap in="SourceGraphic" in2="noise" scale="18" xChannelSelector="R" yChannelSelector="G" />
-                </filter>
-            </defs>
-        </svg>
-
         <button id="open_instructions" aria-label="Open instructions">
             <img id="Guide_Button" src="src/images/Guide_Button.png" alt="Help" />
         </button>
