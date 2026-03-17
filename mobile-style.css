@@ -348,7 +348,7 @@ h1 {
     padding: 0;
     border-radius: 1em;
     background-color: black;
-    min-width: 30vw;
+    min-width: min-content;
     max-width: 55vw;
     max-height: 30%;
     min-height: min-content;
