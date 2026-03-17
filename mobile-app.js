@@ -331,17 +331,26 @@ class EunicornWorld {
         const cx = (this.left_coord + this.unicorn.offsetWidth / 2) / BG_width;
         const cy = (this.top_coord + this.unicorn.offsetHeight / 2) / BG_height;
 
-        const onMountainLandUpper = (cx >= 0.14 && cx < 0.24 && cy >= 0.04 && cy < 0.20);
-        const onMountainLandLower = (cx >= 0.10 && cx < 0.26 && cy >= 0.20 && cy < 0.40);
-        const onMountainLand = onMountainLandUpper || onMountainLandLower;
-
-        const inOceanTop = (cx >= 0.0 && cx < 0.26 && cy >= 0.0 && cy < 0.07);
-        const inLeftBayInlet = (cx >= 0.0 && cx < 0.13 && cy >= 0.06 && cy < 0.44);
-        const inCentralLake = (cx >= 0.10 && cx < 0.43 && cy >= 0.32 && cy < 0.60);
-        const inRightRiver = (cx >= 0.37 && cx < 0.50 && cy >= 0.38 && cy < 0.62);
-        const inPurplePond = (cx >= 0.68 && cx < 0.77 && cy >= 0.59 && cy < 0.77);
-
-        return !onMountainLand && (inOceanTop || inLeftBayInlet || inCentralLake || inRightRiver || inPurplePond);
+        return (
+            // 1st box: left half of ocean
+            (cx < 0.09 && cy < 0.15 && cy > 0.03)
+            // 2nd box: right half of ocean before mountain
+            || (cx > 0.09 && cx < 0.22 && cy < 0.20 && cy > 0.03)
+            // 3rd box: corner next to mountaintop
+            || (cx > 0.22 && cx < 0.25 && cy < 0.10 && cy > 0.03)
+            // 4th box: fjord entrance
+            || (cx > 0.38 && cx < 0.47 && cy < 0.25 && cy > 0.15)
+            // 5th box: fjord middle
+            || (cx > 0.41 && cx < 0.49 && cy < 0.33 && cy >= 0.25)
+            // 6th box: fjord middle bend
+            || (cx > 0.44 && cx < 0.49 && cy < 0.45 && cy >= 0.33)
+            // 7th box: fjord fork
+            || (cx > 0.41 && cx < 0.45 && cy < 0.55 && cy >= 0.45)
+            // 8th box: flow from mountain into fjord
+            || (cx > 0.30 && cx <= 0.41 && cy < 0.55 && cy >= 0.48)
+            // 9th box: crater lake
+            || (cx > 0.69 && cx < 0.80 && cy < 0.78 && cy > 0.55)
+        );
     }
 
     startAnimationLoop() {
