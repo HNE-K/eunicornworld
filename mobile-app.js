@@ -338,8 +338,10 @@ class EunicornWorld {
             || (cx > 0.09 && cx < 0.22 && cy < 0.20 && cy > 0.03)
             // 3rd box: corner next to mountaintop
             || (cx > 0.22 && cx < 0.25 && cy < 0.15 && cy > 0.03)
-            // 3.5th box: triangular area left of mountain peak
-            || (cx > 0.22 && cx < 0.30 && cy < 0.18 && cy >= 0.03)
+            // 3.5a box: upper ocean right of mountain peak
+            || (cx > 0.22 && cx < 0.30 && cy < 0.10 && cy >= 0.03)
+            // 3.5b box: lower ocean alongside mountain peak (narrower)
+            || (cx > 0.22 && cx < 0.26 && cy < 0.18 && cy >= 0.10)
             // 4th box: fjord entrance
             || (cx > 0.38 && cx < 0.47 && cy < 0.25 && cy > 0.15)
             // 5th box: fjord middle

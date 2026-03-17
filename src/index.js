@@ -231,8 +231,10 @@ function init() {
             (left_coord > 0.09*BG_section.clientWidth && left_coord < 0.22*BG_section.clientWidth && top_coord < 0.2*BG_section.clientHeight && top_coord > 0.03*BG_section.clientHeight)
             || // 3rd box: corner next to mountaintop
             (left_coord > 0.22*BG_section.clientWidth && left_coord < 0.25*BG_section.clientWidth && top_coord < 0.1*BG_section.clientHeight && top_coord > 0.03*BG_section.clientHeight)
-            || // 3.5th box: triangular area left of mountain peak
-            (left_coord > 0.22*BG_section.clientWidth && left_coord < 0.30*BG_section.clientWidth && top_coord < 0.18*BG_section.clientHeight && top_coord >= 0.03*BG_section.clientHeight)
+            || // 3.5a box: upper ocean right of mountain peak
+            (left_coord > 0.22*BG_section.clientWidth && left_coord < 0.30*BG_section.clientWidth && top_coord < 0.10*BG_section.clientHeight && top_coord >= 0.03*BG_section.clientHeight)
+            || // 3.5b box: lower ocean alongside mountain peak (narrower)
+            (left_coord > 0.22*BG_section.clientWidth && left_coord < 0.26*BG_section.clientWidth && top_coord < 0.18*BG_section.clientHeight && top_coord >= 0.10*BG_section.clientHeight)
             || // 4th box: fjord entrance
             (left_coord > 0.38*BG_section.clientWidth && left_coord < 0.47*BG_section.clientWidth && top_coord < 0.25*BG_section.clientHeight && top_coord > 0.15*BG_section.clientHeight)
             || // 5th box: fjord middle
