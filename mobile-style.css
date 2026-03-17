@@ -58,6 +58,7 @@ body {
     height: 143vh;
     transform-origin: 0 0;
     touch-action: none;
+    will-change: transform;
 }
 
 #BG_img {
@@ -96,6 +97,7 @@ body {
     filter: drop-shadow(0rem 0rem 0.25rem rgb(50, 50, 50));
     transform: scaleX(-1);
     pointer-events: none;
+    will-change: left, top, transform;
 }
 
 #unicorn img {
@@ -106,6 +108,10 @@ body {
     user-select: none;
     -webkit-user-select: none;
     -webkit-user-drag: none;
+}
+
+#unicorn img.frame-active {
+    display: inline-block;
 }
 
 #title {
@@ -277,11 +283,17 @@ h1 {
     transform: rotateZ(var(--thumb-rotate, 0deg));
 }
 
-.dot {
+.dot-container {
     display: inline-block;
     position: absolute;
     height: 4%;
     width: auto;
+    pointer-events: none;
+}
+
+.dot {
+    width: auto;
+    height: 100%;
     fill: blanchedalmond;
     filter: drop-shadow(0 0 0.25rem rgb(255, 217, 0));
     animation-name: spin;
@@ -289,7 +301,6 @@ h1 {
     animation-iteration-count: infinite;
     animation-timing-function: ease-in-out;
     animation-direction: alternate;
-    pointer-events: none;
 }
 
 .dot .cls-1 {
