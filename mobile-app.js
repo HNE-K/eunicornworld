@@ -483,6 +483,7 @@ class EunicornWorld {
 
         labels.forEach((text, i) => { this.artLinks[i].innerHTML = text; });
         this.snow_canvas.style.display = snowVisible ? 'inline-block' : 'none';
+
         if (newSeason !== this.currentSeason) {
             this.currentSeason = newSeason;
             this._seasonTransitionId++;
