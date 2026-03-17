@@ -69,6 +69,12 @@ class EunicornWorld {
         closeBtn.addEventListener('click', () => {
             instructions.style.display = 'none';
         });
+
+        instructions.addEventListener('click', (e) => {
+            if (e.target === instructions) {
+                instructions.style.display = 'none';
+            }
+        });
     }
 
     async initSession() {
