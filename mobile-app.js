@@ -329,37 +329,37 @@ class EunicornWorld {
         const BG_width = this.BG_section.offsetWidth;
         const BG_height = this.BG_section.offsetHeight;
         const cx = (this.left_coord + this.unicorn.offsetWidth / 2) / BG_width;
-        const cy = (this.top_coord + this.unicorn.offsetHeight / 2) / BG_height;
+        const cy = (this.top_coord + this.unicorn.offsetHeight) / BG_height;
 
         return (
             // 1st box: left half of ocean
-            (cx < 0.09 && cy < 0.15 && cy > 0.03)
+            (cx < 0.09 && cy < 0.19 && cy > 0.07)
             // 2nd box: right half of ocean before mountain
-            || (cx > 0.09 && cx < 0.22 && cy < 0.20 && cy > 0.03)
+            || (cx > 0.09 && cx < 0.22 && cy < 0.24 && cy > 0.07)
             // 3rd box: corner next to mountaintop
-            || (cx > 0.22 && cx < 0.25 && cy < 0.15 && cy > 0.03)
+            || (cx > 0.22 && cx < 0.25 && cy < 0.19 && cy > 0.07)
             // 3.5a1 box: very top ocean strip (wide)
-            || (cx > 0.22 && cx < 0.30 && cy < 0.06 && cy >= 0.03)
+            || (cx > 0.22 && cx < 0.30 && cy < 0.10 && cy >= 0.07)
             // 3.5a2 box: ocean strip below top (narrower to avoid peak)
-            || (cx > 0.22 && cx < 0.26 && cy < 0.10 && cy >= 0.06)
+            || (cx > 0.22 && cx < 0.26 && cy < 0.14 && cy >= 0.10)
             // 3.5b box: lower ocean alongside mountain peak (narrower)
-            || (cx > 0.22 && cx < 0.26 && cy < 0.18 && cy >= 0.10)
+            || (cx > 0.22 && cx < 0.26 && cy < 0.22 && cy >= 0.14)
             // 4th box: fjord entrance
-            || (cx > 0.38 && cx < 0.47 && cy < 0.25 && cy > 0.15)
+            || (cx > 0.38 && cx < 0.47 && cy < 0.29 && cy > 0.19)
             // 5th box: fjord middle
-            || (cx > 0.41 && cx < 0.52 && cy < 0.33 && cy >= 0.25)
+            || (cx > 0.41 && cx < 0.52 && cy < 0.37 && cy >= 0.29)
             // 6th box: fjord middle bend (wide)
-            || (cx > 0.40 && cx < 0.52 && cy < 0.40 && cy >= 0.33)
+            || (cx > 0.40 && cx < 0.52 && cy < 0.44 && cy >= 0.37)
             // 7a box: fjord lower-upper
-            || (cx > 0.39 && cx < 0.49 && cy < 0.44 && cy >= 0.40)
+            || (cx > 0.39 && cx < 0.49 && cy < 0.48 && cy >= 0.44)
             // 7b box: fjord lower-middle
-            || (cx > 0.39 && cx < 0.47 && cy < 0.47 && cy >= 0.44)
+            || (cx > 0.39 && cx < 0.47 && cy < 0.51 && cy >= 0.48)
             // 7c box: fjord lower-bottom
-            || (cx > 0.38 && cx < 0.45 && cy < 0.50 && cy >= 0.47)
+            || (cx > 0.38 && cx < 0.45 && cy < 0.54 && cy >= 0.51)
             // 8th box: flow from mountain into fjord
-            || (cx > 0.35 && cx <= 0.43 && cy < 0.53 && cy >= 0.50)
+            || (cx > 0.35 && cx <= 0.43 && cy < 0.57 && cy >= 0.54)
             // 9th box: crater lake
-            || (cx > 0.70 && cx < 0.84 && cy < 0.78 && cy > 0.55)
+            || (cx > 0.70 && cx < 0.84 && cy < 0.82 && cy > 0.59)
         );
     }
 
