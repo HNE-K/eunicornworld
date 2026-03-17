@@ -377,11 +377,11 @@ h1 {
     min-width: 48px;
     line-height: 1.4;
     border-radius: 1em;
-    transition: opacity 0.15s ease;
+    transition: transform 0.15s ease;
 }
 
 .artlink:active {
-    opacity: 0.6;
+    transform: scale(0.92);
 }
 
 @media (min-width: 768px) {
