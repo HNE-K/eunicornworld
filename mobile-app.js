@@ -511,16 +511,16 @@ class EunicornWorld {
         this.snow_canvas.height = h;
         this.snow_canvas.width = w;
 
-        const max_flakes = 100;
+        const max_flakes = 400;
         const flakes = [];
 
-        const random = (min, max) => min + Math.random() * (max - min + 1);
+        const random = (min, max) => min + Math.random() * (max - min);
 
         const flakeSprites = [];
 
         for (let i = 0; i < max_flakes; i++) {
-            const radius = random(0.5, 2.2);
-            const opacity = Math.random();
+            const radius = random(0.5, 2.5);
+            const opacity = random(0.3, 0.9);
 
             const size = Math.ceil(radius * 2 + 2);
             const offscreen = document.createElement('canvas');
@@ -531,8 +531,8 @@ class EunicornWorld {
             const cy = size / 2;
             const gradient = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
             gradient.addColorStop(0, `rgba(255, 255, 255, ${opacity})`);
-            gradient.addColorStop(0.8, `rgba(210, 236, 242, ${opacity})`);
-            gradient.addColorStop(1, `rgba(237, 247, 249, ${opacity})`);
+            gradient.addColorStop(0.5, `rgba(230, 240, 245, ${opacity * 0.7})`);
+            gradient.addColorStop(1, `rgba(220, 235, 240, 0)`);
             ctx.beginPath();
             ctx.arc(cx, cy, radius, 0, Math.PI * 2, false);
             ctx.fillStyle = gradient;
@@ -541,31 +541,39 @@ class EunicornWorld {
             flakes.push({
                 x: Math.random() * w,
                 y: Math.random() * h,
-                speedX: random(-11, 11),
-                speedY: random(7, 15),
-                radius: radius
+                speedY: random(0.3, 1.5),
+                swayAmp: random(0.2, 1.0),
+                swaySpeed: random(0.005, 0.02),
+                phase: Math.random() * Math.PI * 2
             });
             flakeSprites.push(offscreen);
         }
 
+        let tick = 0;
+
         const snowfall = () => {
             snow_context.clearRect(0, 0, w, h);
+            tick++;
 
             for (let i = 0; i < max_flakes; i++) {
+                const f = flakes[i];
                 const spriteSize = flakeSprites[i].width;
+
                 snow_context.drawImage(
                     flakeSprites[i],
-                    flakes[i].x - spriteSize / 2,
-                    flakes[i].y - spriteSize / 2
+                    f.x - spriteSize / 2,
+                    f.y - spriteSize / 2
                 );
 
-                flakes[i].x += flakes[i].speedX;
-                flakes[i].y += flakes[i].speedY;
+                f.x += Math.sin(tick * f.swaySpeed + f.phase) * f.swayAmp;
+                f.y += f.speedY;
 
-                if (flakes[i].y > h) {
-                    flakes[i].x = Math.random() * w;
-                    flakes[i].y = -50;
+                if (f.y > h + 10) {
+                    f.x = Math.random() * w;
+                    f.y = -10;
                 }
+                if (f.x > w + 10) f.x = -10;
+                if (f.x < -10) f.x = w + 10;
             }
 
             this.snowRAF = requestAnimationFrame(snowfall);
