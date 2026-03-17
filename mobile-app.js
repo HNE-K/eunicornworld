@@ -10,7 +10,9 @@ class EunicornWorld {
         this.unicorn = null;
         this.BG_section = null;
         this.BG_img = null;
+        this.BG_img_old = null;
         this.viewport = null;
+        this._seasonTransitionId = 0;
         this.facingRight = true;
         this.left_coord = 0;
         this.top_coord = 0;
@@ -53,6 +55,7 @@ class EunicornWorld {
         this.unicorn = document.getElementById('unicorn');
         this.BG_section = document.getElementById('BG');
         this.BG_img = document.getElementById('BG_img');
+        this.BG_img_old = document.getElementById('BG_img_old');
         this.viewport = document.getElementById('viewport');
         this.slider = document.getElementById('slider');
         this.snow_canvas = document.getElementById('snow_canvas');
@@ -453,39 +456,54 @@ class EunicornWorld {
 
     updateSeason() {
         const value = this.slider.value;
+        let newSeason, newSrc, snowVisible, labels;
 
         if (value >= 1 && value <= 25) {
-            this.currentSeason = 'spring';
-            this.BG_img.src = this.mapImages.spring;
-            this.snow_canvas.style.display = 'none';
-            this.artLinks[0].innerHTML = 'Mt. Creativity';
-            this.artLinks[1].innerHTML = "The First Fairy's Shrine";
-            this.artLinks[2].innerHTML = 'Forest of Guardians';
-            this.artLinks[3].innerHTML = 'Passage to Paradise';
+            newSeason = 'spring';
+            newSrc = this.mapImages.spring;
+            snowVisible = false;
+            labels = ['Mt. Creativity', "The First Fairy's Shrine", 'Forest of Guardians', 'Passage to Paradise'];
         } else if (value >= 26 && value <= 50) {
-            this.currentSeason = 'summer';
-            this.BG_img.src = this.mapImages.summer;
-            this.snow_canvas.style.display = 'none';
-            this.artLinks[0].innerHTML = "Magmanimous Dragon's Soup Kitchen";
-            this.artLinks[1].innerHTML = 'Toasty Refuge';
-            this.artLinks[2].innerHTML = 'Charcoal Woods';
-            this.artLinks[3].innerHTML = "Cliff Dragon's Diving Board";
+            newSeason = 'summer';
+            newSrc = this.mapImages.summer;
+            snowVisible = false;
+            labels = ["Magmanimous Dragon's Soup Kitchen", 'Toasty Refuge', 'Charcoal Woods', "Cliff Dragon's Diving Board"];
         } else if (value >= 51 && value <= 75) {
-            this.currentSeason = 'autumn';
-            this.BG_img.src = this.mapImages.autumn;
-            this.snow_canvas.style.display = 'none';
-            this.artLinks[0].innerHTML = 'Rebirth Recycling, Inc.';
-            this.artLinks[1].innerHTML = 'Phoenix Airlines Landing Pad';
-            this.artLinks[2].innerHTML = 'Goldenbell Woods';
-            this.artLinks[3].innerHTML = 'Silverscissor Gates';
-        } else if (value >= 76 && value <= 100) {
-            this.currentSeason = 'winter';
-            this.BG_img.src = this.mapImages.winter;
-            this.snow_canvas.style.display = 'inline-block';
-            this.artLinks[0].innerHTML = 'Mt. Vein';
-            this.artLinks[1].innerHTML = 'Snowfox Den';
-            this.artLinks[2].innerHTML = 'Nightlight Forest';
-            this.artLinks[3].innerHTML = 'Fortress Cliffs';
+            newSeason = 'autumn';
+            newSrc = this.mapImages.autumn;
+            snowVisible = false;
+            labels = ['Rebirth Recycling, Inc.', 'Phoenix Airlines Landing Pad', 'Goldenbell Woods', 'Silverscissor Gates'];
+        } else {
+            newSeason = 'winter';
+            newSrc = this.mapImages.winter;
+            snowVisible = true;
+            labels = ['Mt. Vein', 'Snowfox Den', 'Nightlight Forest', 'Fortress Cliffs'];
+        }
+
+        labels.forEach((text, i) => { this.artLinks[i].innerHTML = text; });
+        this.snow_canvas.style.display = snowVisible ? 'inline-block' : 'none';
+
+        if (newSeason !== this.currentSeason) {
+            this.currentSeason = newSeason;
+            this._seasonTransitionId++;
+            const transitionId = this._seasonTransitionId;
+
+            this.BG_img_old.src = this.BG_img.src;
+            this.BG_img_old.classList.add('fading');
+
+            this.BG_img.src = newSrc;
+
+            const onEnd = () => {
+                if (transitionId !== this._seasonTransitionId) return;
+                this.BG_img_old.classList.remove('fading');
+            };
+            this.BG_img_old.addEventListener('transitionend', onEnd, { once: true });
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    if (transitionId !== this._seasonTransitionId) return;
+                    this.BG_img_old.classList.remove('fading');
+                });
+            });
         }
 
         this.saveSession();
