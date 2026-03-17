@@ -189,7 +189,7 @@ class EunicornWorld {
     }
 
     handleMapClick(e) {
-        if (e.target.closest('#slider') || e.target.closest('#open_instructions') || e.target.closest('#instructions')) {
+        if (e.target.closest('#slider') || e.target.closest('#open_instructions') || e.target.closest('#instructions') || e.target.closest('.preview')) {
             return;
         }
 
@@ -207,7 +207,7 @@ class EunicornWorld {
         if (e.touches.length === 1) {
             const touch = e.touches[0];
 
-            if (touch.target.closest('#slider') || touch.target.closest('#open_instructions') || touch.target.closest('#instructions')) {
+            if (touch.target.closest('#slider') || touch.target.closest('#open_instructions') || touch.target.closest('#instructions') || touch.target.closest('.preview')) {
                 return;
             }
 
