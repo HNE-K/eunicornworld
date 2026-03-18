@@ -97,6 +97,10 @@ class EunicornWorld {
 
         await this.waitForBGLoad();
         this.cacheLayoutDimensions();
+        if (this.left_coord === 0 && this.top_coord === 0) {
+            this.left_coord = this.unicorn.offsetLeft;
+            this.top_coord = this.unicorn.offsetTop;
+        }
         this.startAnimationLoop();
         this.initSnowAnimation();
         this.updateCameraPosition();

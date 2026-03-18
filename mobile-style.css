@@ -101,9 +101,7 @@ body {
     position: absolute;
     top: 18%;
     left: 3%;
-    width: 12vw;
-    min-width: 60px;
-    max-width: 120px;
+    width: 5%;
     height: auto;
     z-index: 10;
     filter: drop-shadow(0rem 0rem 0.25rem rgb(50, 50, 50));
@@ -419,12 +417,6 @@ h1 {
         bottom: 10vh;
     }
 
-    #unicorn {
-        width: 10vw;
-        min-width: 80px;
-        max-width: 150px;
-    }
-
     #instructions > div {
         width: 70vw;
         max-width: 600px;
@@ -435,12 +427,6 @@ h1 {
     #slider {
         width: 60vw;
         left: 20vw;
-    }
-
-    #unicorn {
-        width: 8vw;
-        min-width: 100px;
-        max-width: 180px;
     }
 }
 
