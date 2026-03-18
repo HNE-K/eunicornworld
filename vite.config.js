@@ -3,6 +3,7 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   root: '.',
   publicDir: false,
+  base: '/seniorthesis2bolt/',
   build: {
     outDir: 'docs',
     emptyOutDir: true,
