@@ -104,6 +104,7 @@ class EunicornWorld {
             this.left_coord = this.unicorn.offsetLeft;
             this.top_coord = this.unicorn.offsetTop;
         }
+        this.updateSeason();
         this.startAnimationLoop();
         this.initSnowAnimation();
         this.updateCameraPosition();
@@ -602,8 +603,8 @@ class EunicornWorld {
     }
 
     checkArtProximity() {
-        const ux = this.left_coord / this.cachedBGWidth;
-        const uy = this.top_coord / this.cachedBGHeight;
+        const ux = (this.left_coord + this.cachedUnicornWidth / 2) / this.cachedBGWidth;
+        const uy = (this.top_coord + this.cachedUnicornHeight / 2) / this.cachedBGHeight;
         const threshold = 0.06;
 
         for (let i = 0; i < this.artPositions.length; i++) {
