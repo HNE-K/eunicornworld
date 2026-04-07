@@ -51,12 +51,15 @@ class EunicornWorld {
         };
 
         this.prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        this.isDesktop = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
         this.cachedBGWidth = 0;
         this.cachedBGHeight = 0;
         this.cachedUnicornWidth = 0;
         this.cachedUnicornHeight = 0;
         this.lastActiveFrame = -1;
+
+        this.keysDown = {};
     }
 
     async init() {
@@ -241,6 +244,11 @@ class EunicornWorld {
         this.viewport.addEventListener('touchmove', (e) => this.handleTouchMove(e), { passive: false });
         this.viewport.addEventListener('touchend', (e) => this.handleTouchEnd(e));
 
+        if (this.isDesktop) {
+            document.addEventListener('keydown', (e) => this.handleKeyDown(e));
+            document.addEventListener('keyup', (e) => this.handleKeyUp(e));
+        }
+
         this.slider.addEventListener('input', (e) => {
             this.slider.style.setProperty('--thumb-rotate', `${(e.target.value/100) * 2160}deg`);
             this.updateSeason();
@@ -249,7 +257,69 @@ class EunicornWorld {
         window.addEventListener('resize', () => this.cacheLayoutDimensions());
     }
 
+    handleKeyDown(e) {
+        const key = e.key.toLowerCase();
+        if (['w', 'a', 's', 'd', 'arrowup', 'arrowleft', 'arrowdown', 'arrowright'].includes(key)) {
+            e.preventDefault();
+            this.keysDown[key] = true;
+            this.targetX = null;
+            this.targetY = null;
+        }
+    }
+
+    handleKeyUp(e) {
+        const key = e.key.toLowerCase();
+        this.keysDown[key] = false;
+        const moving = ['w', 'a', 's', 'd', 'arrowup', 'arrowleft', 'arrowdown', 'arrowright'].some(k => this.keysDown[k]);
+        if (!moving) {
+            this.isMoving = false;
+        }
+    }
+
+    moveByKeyboard() {
+        const maxX = this.cachedBGWidth - this.cachedUnicornWidth;
+        const maxY = this.cachedBGHeight - this.cachedUnicornHeight;
+        let moved = false;
+
+        if (this.keysDown['a'] || this.keysDown['arrowleft']) {
+            this.left_coord = Math.max(0, this.left_coord - this.speed);
+            if (this.facingRight) {
+                this.unicorn.style.transform = 'scaleX(1)';
+                this.facingRight = false;
+            }
+            moved = true;
+        }
+        if (this.keysDown['d'] || this.keysDown['arrowright']) {
+            this.left_coord = Math.min(maxX, this.left_coord + this.speed);
+            if (!this.facingRight) {
+                this.unicorn.style.transform = 'scaleX(-1)';
+                this.facingRight = true;
+            }
+            moved = true;
+        }
+        if (this.keysDown['w'] || this.keysDown['arrowup']) {
+            this.top_coord = Math.max(0, this.top_coord - this.speed);
+            moved = true;
+        }
+        if (this.keysDown['s'] || this.keysDown['arrowdown']) {
+            this.top_coord = Math.min(maxY, this.top_coord + this.speed);
+            moved = true;
+        }
+
+        if (moved) {
+            this.isMoving = true;
+            this.unicorn.style.left = this.left_coord + 'px';
+            this.unicorn.style.top = this.top_coord + 'px';
+            this.checkArtProximity();
+            this.updateCameraPosition();
+        } else {
+            this.isMoving = false;
+        }
+    }
+
     handleMapClick(e) {
+        if (this.isDesktop) return;
+
         if (e.target.closest('#slider') || e.target.closest('#open_instructions') || e.target.closest('#instructions') || e.target.closest('.preview')) {
             return;
         }
@@ -315,7 +385,7 @@ class EunicornWorld {
     }
 
     handleTouchEnd(e) {
-        if (e.changedTouches.length === 1 && this.isDragging) {
+        if (!this.isDesktop && e.changedTouches.length === 1 && this.isDragging) {
             const touch = e.changedTouches[0];
             const deltaX = touch.clientX - this.dragStartX;
             const deltaY = touch.clientY - this.dragStartY;
@@ -447,7 +517,11 @@ class EunicornWorld {
         const frameDelay = 1000 / 12;
 
         const animate = (currentTime) => {
-            this.moveToTarget();
+            if (this.isDesktop) {
+                this.moveByKeyboard();
+            } else {
+                this.moveToTarget();
+            }
 
             if (!this.prefersReducedMotion) {
                 if (currentTime - lastFrameTime >= frameDelay) {

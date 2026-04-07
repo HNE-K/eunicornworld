@@ -410,6 +410,20 @@ h1 {
     transform: scale(0.92);
 }
 
+.desktop-only {
+    display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .desktop-only {
+        display: block;
+    }
+
+    .mobile-only {
+        display: none;
+    }
+}
+
 @media (min-width: 768px) {
     #slider {
         width: 70vw;
