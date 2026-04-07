@@ -25,6 +25,27 @@ var art2Link = null;
 var art3Link = null;
 var art4Link = null;
 
+function checkArtProximity() {
+    var threshold_x = 0.08 * BG_section.clientWidth;
+    var threshold_y = 0.08 * BG_section.clientHeight;
+
+    var art1_left = art1.offsetLeft;
+    var art1_top = art1.offsetTop;
+    art1Preview.style.visibility = (Math.abs(left_coord - art1_left) < threshold_x && Math.abs(top_coord - art1_top) < threshold_y) ? "visible" : "hidden";
+
+    var art2_left = art2.offsetLeft;
+    var art2_top = art2.offsetTop;
+    art2Preview.style.visibility = (Math.abs(left_coord - art2_left) < threshold_x && Math.abs(top_coord - art2_top) < threshold_y) ? "visible" : "hidden";
+
+    var art3_left = art3.offsetLeft;
+    var art3_top = art3.offsetTop;
+    art3Preview.style.visibility = (Math.abs(left_coord - art3_left) < threshold_x && Math.abs(top_coord - art3_top) < threshold_y) ? "visible" : "hidden";
+
+    var art4_left = art4.offsetLeft;
+    var art4_top = art4.offsetTop;
+    art4Preview.style.visibility = (Math.abs(left_coord - art4_left) < threshold_x && Math.abs(top_coord - art4_top) < threshold_y) ? "visible" : "hidden";
+}
+
 // Unicorn functions
 // get initial position
 function startMove() {
@@ -111,43 +132,7 @@ function updatePos(event) {
         default:
             break;
     }
-    // artwork previews. If using percentages to check whether the unicorn is near the dot, tune each artpreview individually bc percentages expand the further down/right the dot is.
-    var art1_rect = art1.getBoundingClientRect();
-    var art1_left = art1_rect.left + document.body.scrollLeft; // bc svg don't support .offsetLeft, estimation of .offsetLeft = art1's left-wise coordinate relative to the viewport + how much the page is scrolled horizontally (the part that's not visible when you've scrolled)
-    var art1_top = art1_rect.top + document.body.scrollTop;
-    if ((left_coord - art1_left)/art1_left >= -0.18 && (left_coord - art1_left)/art1_left < 0.1 && (top_coord - art1_top)/art1_top >= -0.4 && (top_coord - art1_top)/art1_top < 0.2) {
-        art1Preview.style.visibility = "visible";
-    } else {
-        art1Preview.style.visibility = "hidden";
-    }
-
-    var art2_rect = art2.getBoundingClientRect();
-    var art2_left = art2_rect.left + document.body.scrollLeft; // estimation of offsetLeft = art1's left-wise coordinate relative to the viewport (can see) + how much the page is scrolled horizontally (not visible when you've scrolled)
-    var art2_top = art2_rect.top + document.body.scrollTop;
-    // if (left_coord - art2_left >= -60 && left_coord - art2_left <= 0 && top_coord - art2_top >= -60 && top_coord - art2_top <= 0) {
-    if ((left_coord - art2_left)/art2_left >= -1.5 && (left_coord - art2_left)/art2_left < 0.6 && (top_coord - art2_top)/art2_top >= -0.3 && (top_coord - art2_top)/art2_top < 0.1) {
-        art2Preview.style.visibility = "visible";
-    } else {
-        art2Preview.style.visibility = "hidden";
-    }
-
-    var art3_rect = art3.getBoundingClientRect();
-    var art3_left = art3_rect.left + document.body.scrollLeft; // estimation of offsetLeft = art1's left-wise coordinate relative to the viewport (can see) + how much the page is scrolled horizontally (not visible when you've scrolled)
-    var art3_top = art3_rect.top + document.body.scrollTop;
-    if ((left_coord - art3_left)/art3_left >= -0.15 && (left_coord - art3_left)/art3_left < 0.05 && (top_coord - art3_top)/art3_top >= -0.2 && (top_coord - art3_top)/art3_top < 0.2) {
-        art3Preview.style.visibility = "visible";
-    } else {
-        art3Preview.style.visibility = "hidden";
-    }
-
-    var art4_rect = art4.getBoundingClientRect();
-    var art4_left = art4_rect.left + document.body.scrollLeft; // estimation of offsetLeft = art1's left-wise coordinate relative to the viewport (can see) + how much the page is scrolled horizontally (not visible when you've scrolled)
-    var art4_top = art4_rect.top + document.body.scrollTop;
-    if ((left_coord - art4_left)/art4_left >= -0.14 && (left_coord - art4_left)/art4_left < 0.08 && (top_coord - art4_top)/art4_top >= -0.4 && (top_coord - art4_top)/art4_top < 0.2) {
-        art4Preview.style.visibility = "visible";
-    } else {
-        art4Preview.style.visibility = "hidden";
-    }
+    checkArtProximity();
 
 }
 
@@ -212,6 +197,7 @@ function init() {
     art1 = document.getElementById("art1");
     art2 = document.getElementById("art2");
     art3 = document.getElementById("art3");
+    art4 = document.getElementById("art4");
     art1Preview = document.getElementById("art1Preview");
     art2Preview = document.getElementById("art2Preview");
     art3Preview = document.getElementById("art3Preview");
@@ -221,7 +207,7 @@ function init() {
     document.onkeypress = moving; // in case browser supports .onkeypress instead of .onkeydown
     // UNICORN ANIMATION
     const frames = document.getElementById("unicorn").children;
-    var BG_section = document.getElementById("BG");
+    BG_section = document.getElementById("BG");
     let i = 0; // frame number
     isMoving = false;
     // loop through the frame's numbers. setInterval means do this stuff on loop every 100 ms = 0.1 s
@@ -273,6 +259,7 @@ function init() {
                 frames[i % 8].style.display = "none";
                 // activate the running frame. ++i returns the value after incrementing i, opposite of i++.
                 frames[++i % 8].style.display = "inline-block";
+                checkArtProximity();
             }
             else { // there are 10 frames for standing rn
                 // deactivate the running and swimming frames
@@ -281,6 +268,7 @@ function init() {
                 // activate the standing frames
                 frames[i % 10 + 8].style.display = "none";
                 frames[++i % 10 + 8].style.display = "inline-block";
+                checkArtProximity();
             }
         }
     }, 100);
