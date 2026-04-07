@@ -80,6 +80,12 @@ class EunicornWorld {
             document.getElementById('art3Preview'),
             document.getElementById('art4Preview')
         ];
+        this.artDots = [
+            document.getElementById('art1'),
+            document.getElementById('art2'),
+            document.getElementById('art3'),
+            document.getElementById('art4')
+        ];
         this.artLinks = [
             document.getElementById('art1Link'),
             document.getElementById('art2Link'),
@@ -605,9 +611,10 @@ class EunicornWorld {
     checkArtProximity() {
         const ux = (this.left_coord + this.cachedUnicornWidth / 2) / this.cachedBGWidth;
         const uy = (this.top_coord + this.cachedUnicornHeight / 2) / this.cachedBGHeight;
-        const threshold = 0.06;
 
         for (let i = 0; i < this.artPositions.length; i++) {
+            const dotWidth = this.artDots[i].offsetWidth;
+            const threshold = dotWidth / this.cachedBGWidth;
             const dx = ux - this.artPositions[i].left;
             const dy = uy - this.artPositions[i].top;
             const dist = Math.sqrt(dx * dx + dy * dy);
